@@ -67,7 +67,7 @@ $(function() {
      * hiding/showing of the menu element.
      */
     it('is hidden by default', function() {
-      expect(document.getElementsByTagName("BODY")[0].className).toBe('menu-hidden');
+      expect($('body').hasClass('menu-hidden')).toBe(true);
     });
 
     /* Test that ensures the menu changes
@@ -77,11 +77,11 @@ $(function() {
      */
     it('menu display when clicked', function() {
       $('.menu-icon-link').click();
-      expect(document.getElementsByTagName("BODY")[0].className).toBe('');
+      expect($('body').hasClass('menu-hidden')).toBe(false);
     });
     it('menu hides when clicked again', function() {
       $('.menu-icon-link').click();
-      expect(document.getElementsByTagName("BODY")[0].className).toBe('menu-hidden');
+      expect($('body').hasClass('menu-hidden')).toBe(true);
     });
 
   });
@@ -103,7 +103,7 @@ $(function() {
 
     it('loaded and has entry', function(done) {
       expect(loadComplete).toBe(true);
-      expect($('.entry-link').length).toBeGreaterThan(1);
+      expect($('.feed .entry').length).toBeGreaterThan(0);
       done();
     });
   });
@@ -117,11 +117,10 @@ $(function() {
     beforeEach(function(done) {
       loadFeed(0, function() {
         feedresult[0] = document.querySelector('.feed').innerHTML;
-      });
-
-      loadFeed(1, function() {
-        feedresult[1] = document.querySelector('.feed').innerHTML;
-        done();
+        loadFeed(1, function() {
+          feedresult[1] = document.querySelector('.feed').innerHTML;
+          done();
+        });
       });
     });
     it('content changes', function(done) {
